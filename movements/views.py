@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import MovementSerializer
+from .models import Movement
 
-# Create your views here.
+
+class MovementViewSet(viewsets.ModelViewSet):
+    queryset = Movement.objects.all()
+    serializer_class = MovementSerializer
