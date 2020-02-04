@@ -6,7 +6,7 @@ from movements.views import MovementViewSet
 
 router = routers.DefaultRouter()
 router.register("patients", PatientViewSet)
-router.register("patients", MovementViewSet)
+router.register("movements", MovementViewSet)
 
 urlpatterns = [
     url(r"^admin/", admin.site.urls),

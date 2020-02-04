@@ -6,3 +6,4 @@ from .models import Patient
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
+        exclude = []
