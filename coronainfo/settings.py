@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
+    "rest_auth",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "rest_auth.registration",
     "patients.apps.PatientsConfig",
     "movements.apps.MovementsConfig",
 ]
@@ -120,3 +126,5 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = "./.static_root"
+
+SITE_ID = 1

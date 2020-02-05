@@ -10,5 +10,7 @@ router.register("movements", MovementViewSet)
 
 urlpatterns = [
     url(r"^admin/", admin.site.urls),
+    url(r"^auth/", include("rest_auth.urls")),
+    url(r"^auth/registration/", include("rest_auth.registration.urls")),
     url(r"^", include(router.urls)),
 ]
