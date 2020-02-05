@@ -6,7 +6,7 @@ class Patient(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=30)
     contact_count = models.IntegerField()
-    second_infection = models.IntegerField()
+    second_infection = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return "%s %s %s %s" % (self.index, self.date, self.status, self.contact_count)

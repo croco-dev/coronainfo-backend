@@ -6,3 +6,4 @@ from .models import Movement
 class MovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movement
+        exclude = []

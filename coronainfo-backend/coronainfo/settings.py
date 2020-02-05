@@ -128,3 +128,9 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "./.static_root"
 
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
