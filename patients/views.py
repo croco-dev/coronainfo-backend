@@ -8,6 +8,6 @@ class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
-    def perform_create(self, serializer):
+    def create(self, request, *args, **kwargs):
         permission_classes = [permissions.IsAuthenticated]
-        return super().perform_create(serializer)
+        return super().create(request, *args, **kwargs)
