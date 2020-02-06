@@ -9,5 +9,5 @@ class Feed(models.Model):
     second_infection = models.IntegerField(blank=True, null=True)
     lat = models.FloatField(blank=True)
     lng = models.FloatField(blank=True)
-    index = models.IntegerField()
+    index = models.IntegerField(blank=True)
     log_type = models.CharField(max_length=10)
