@@ -142,3 +142,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("coronainfo.permissions.IsAdminOrReadOnly",),
     "PAGINATE_BY": 10,
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
