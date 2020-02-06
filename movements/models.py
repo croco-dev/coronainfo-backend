@@ -5,8 +5,9 @@ from patients.models import Patient
 class Movement(models.Model):
     date = models.DateField()
     place = models.CharField(max_length=20)
-    address = models.CharField(max_length=100)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    lat = models.IntegerField()
+    lng = models.IntegerField()
+    patient = models.ForeignKey(
+        Patient, related_name="movements", on_delete=models.CASCADE
+    )
 
-    def __str__(self):
-        return self.address

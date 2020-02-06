@@ -4,8 +4,10 @@ from django.db import models
 class Patient(models.Model):
     index = models.IntegerField()
     date = models.DateField()
-    status = models.CharField(max_length=30)
+    status = models.CharField(max_length=200)
     contact_count = models.IntegerField()
+    lat = models.IntegerField()
+    lng = models.IntegerField()
     second_infection = models.IntegerField(blank=True, null=True)
 
     def __str__(self):

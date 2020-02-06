@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "patients.apps.PatientsConfig",
     "movements.apps.MovementsConfig",
+    "drf_yasg",
+    "feeds.apps.FeedsConfig",
 ]
 
 MIDDLEWARE = [
@@ -130,7 +132,11 @@ STATIC_ROOT = "./.static_root"
 SITE_ID = 1
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
+    "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
-    ],
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": ("coronainfo.permissions.IsAdminOrReadOnly",),
+    "PAGINATE_BY": 10,
 }

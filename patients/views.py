@@ -1,13 +1,28 @@
 from rest_framework import viewsets, permissions
+from feeds.serializers import FeedsSerializer
+from coronainfo.permissions import IsAdminOrReadOnly
 from .serializers import PatientSerializer
 from .models import Patient
 
 
 class PatientViewSet(viewsets.ModelViewSet):
-
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
-    def create(self, request, *args, **kwargs):
-        permission_classes = [permissions.IsAuthenticated]
-        return super().create(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        data = self.request.data
+        data._mutable = True
+        data["log_type"] = "patient"
+        feedsSerializer = FeedsSerializer(data=data)
+        if feedsSerializer.is_valid():
+            feedsSerializer.save()
+        return super().perform_create(serializer)
+
+    def perform_update(self, serializer):
+        data = self.request.data
+        data._mutable = True
+        data["log_type"] = "patient"
+        feedsSerializer = FeedsSerializer(data=data)
+        if feedsSerializer.is_valid():
+            feedsSerializer.save()
+        return super().perform_update(serializer)
