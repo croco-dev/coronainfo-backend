@@ -8,6 +8,7 @@ from .models import Patient
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    ordering_fields = ["index", "date"]
 
     def perform_create(self, serializer):
         data = self.request.data

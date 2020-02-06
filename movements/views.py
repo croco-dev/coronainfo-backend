@@ -8,6 +8,7 @@ from .models import Movement
 class MovementViewSet(viewsets.ModelViewSet):
     queryset = Movement.objects.all()
     serializer_class = MovementSerializer
+    ordering_fields = ["index", "date"]
 
     def perform_create(self, serializer):
         data = self.request.data
