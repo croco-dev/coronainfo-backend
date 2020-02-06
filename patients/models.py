@@ -6,8 +6,8 @@ class Patient(models.Model):
     date = models.DateField()
     status = models.CharField(max_length=200)
     contact_count = models.IntegerField()
-    lat = models.IntegerField()
-    lng = models.IntegerField()
+    lat = models.FloatField(blank=True)
+    lng = models.FloatField(blank=True)
     second_infection = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
