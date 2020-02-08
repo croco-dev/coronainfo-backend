@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "feeds.apps.FeedsConfig",
     "corsheaders",
+    "versions",
 ]
 
 MIDDLEWARE = [
