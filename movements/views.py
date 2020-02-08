@@ -9,7 +9,7 @@ class MovementViewSet(viewsets.ModelViewSet):
     queryset = Movement.objects.all()
     serializer_class = MovementSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ["index", "date"]
+    ordering = "-date"
 
     def perform_create(self, serializer):
         data = self.request.data

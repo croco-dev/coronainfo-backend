@@ -9,7 +9,7 @@ class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ["index", "date"]
+    ordering = "-date"
 
     def perform_create(self, serializer):
         data = self.request.data
