@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from feeds.serializers import FeedsSerializer
 from coronainfo.permissions import IsAdminOrReadOnly
 from .serializers import MovementSerializer
@@ -8,6 +8,7 @@ from .models import Movement
 class MovementViewSet(viewsets.ModelViewSet):
     queryset = Movement.objects.all()
     serializer_class = MovementSerializer
+    filter_backends = [filters.OrderingFilter]
     ordering_fields = ["index", "date"]
 
     def perform_create(self, serializer):

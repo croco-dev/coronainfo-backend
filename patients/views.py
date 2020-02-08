@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from feeds.serializers import FeedsSerializer
 from coronainfo.permissions import IsAdminOrReadOnly
 from .serializers import PatientSerializer
@@ -8,6 +8,7 @@ from .models import Patient
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    filter_backends = [filters.OrderingFilter]
     ordering_fields = ["index", "date"]
 
     def perform_create(self, serializer):
