@@ -7,6 +7,7 @@ from patients.views import PatientViewSet
 from movements.views import MovementViewSet
 from feeds.views import FeedViewSet
 from versions.views import VersionViewSet
+from reports.views import ReportViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
@@ -14,6 +15,7 @@ ROUTER.register("patients", PatientViewSet)
 ROUTER.register("movements", MovementViewSet)
 ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
+ROUTER.register("reports", ReportViewSet)
 
 
 urlpatterns = [

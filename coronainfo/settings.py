@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "feeds.apps.FeedsConfig",
     "corsheaders",
     "versions",
+    "reports",
 ]
 
 MIDDLEWARE = [
