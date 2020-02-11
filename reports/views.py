@@ -16,7 +16,7 @@ class ReportViewSet(viewsets.ReadOnlyModelViewSet):
         data["total_count"] = Patient.objects.count()
         data["death_count"] = Patient.objects.filter(status="사망").count()
         data["cure_count"] = Patient.objects.filter(status="완치").count()
-        today = Version.objects.first().date
+        today = Version.objects.order_by("-date").first().date
         yesterday_count = Patient.objects.filter(
             date=today - datetime.timedelta(days=1)
         ).count()
