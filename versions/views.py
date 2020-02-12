@@ -9,4 +9,4 @@ class VersionViewSet(viewsets.ModelViewSet):
     queryset = Version.objects.all()
     serializer_class = VersionSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering = "-date"
+    ordering = "-created_at"
