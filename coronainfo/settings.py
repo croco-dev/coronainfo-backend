@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "qr$q_#3&_d3s%xqu#2%n0qlmx(cji$zn7$w15^4i%hkgo!#y3^"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["coronas.info", "127.0.0.1"]
 
@@ -45,12 +45,12 @@ INSTALLED_APPS = [
     "allauth.account",
     "rest_auth.registration",
     "patients.apps.PatientsConfig",
+    "versions.apps.VersionsConfig",
+    "reports.apps.ReportsConfig",
     "movements.apps.MovementsConfig",
     "drf_yasg",
     "feeds.apps.FeedsConfig",
     "corsheaders",
-    "versions",
-    "reports",
 ]
 
 MIDDLEWARE = [

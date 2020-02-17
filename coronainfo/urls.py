@@ -11,11 +11,11 @@ from reports.views import ReportViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
-ROUTER.register("patients", PatientViewSet)
-ROUTER.register("movements", MovementViewSet)
+ROUTER.register("reports", ReportViewSet, basename={"reports"})
 ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
-ROUTER.register("reports", ReportViewSet)
+ROUTER.register("patients", PatientViewSet)
+ROUTER.register("movements", MovementViewSet)
 
 
 urlpatterns = [

@@ -8,7 +8,6 @@ from .serializers import ReportSerializer
 
 
 class ReportViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Patient.objects.all()
     serializer_class = ReportSerializer
 
     def list(self, request):
@@ -21,9 +20,7 @@ class ReportViewSet(viewsets.ReadOnlyModelViewSet):
             date=today - datetime.timedelta(days=1)
         ).count()
         today_count = Patient.objects.filter(date=today).count()
-        data["increase_rate"] = round(
-            (today_count - yesterday_count) / today_count * 100
-        )
+        data["increase_count"] = today_count - yesterday_count
         second_count = Patient.objects.filter(second_infection__isnull=False).count()
         data["second_rate"] = round((second_count / data["total_count"]) * 100)
         data["death_rate"] = round((data["death_count"] / data["total_count"]) * 100)
