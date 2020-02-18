@@ -48,8 +48,9 @@ INSTALLED_APPS = [
     "versions.apps.VersionsConfig",
     "reports.apps.ReportsConfig",
     "movements.apps.MovementsConfig",
-    "drf_yasg",
+    "news.apps.NewsConfig",
     "feeds.apps.FeedsConfig",
+    "drf_yasg",
     "corsheaders",
 ]
 
