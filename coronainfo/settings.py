@@ -25,7 +25,7 @@ SECRET_KEY = "qr$q_#3&_d3s%xqu#2%n0qlmx(cji$zn7$w15^4i%hkgo!#y3^"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["coronas.info", "127.0.0.1"]
+ALLOWED_HOSTS = ["coronas.info", "127.0.0.1", "api.coronas.info"]
 
 
 # Application definition
