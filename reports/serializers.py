@@ -6,7 +6,7 @@ class ReportSerializer(serializers.Serializer):
     total_count = serializers.IntegerField()
     cure_count = serializers.IntegerField()
     death_count = serializers.IntegerField()
-    increase_rate = serializers.IntegerField()
+    increase_count = serializers.IntegerField()
     second_rate = serializers.IntegerField()
     death_rate = serializers.IntegerField()
     cure_rate = serializers.IntegerField()
