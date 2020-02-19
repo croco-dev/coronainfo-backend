@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from rest_framework import viewsets, permissions, filters
 from feeds.serializers import FeedsSerializer
 from rest_framework.response import Response
@@ -21,9 +22,11 @@ class ReportViewSet(viewsets.ReadOnlyModelViewSet):
         ).count()
         today_count = Patient.objects.filter(date=today).count()
         data["increase_count"] = today_count
+        data["contact_count"] = Patient.objects.aggregate(Sum("contact_count"))[
+            "contact_count__sum"
+        ]
         second_count = Patient.objects.filter(second_infection__isnull=False).count()
         data["second_rate"] = round((second_count / data["total_count"]) * 100)
-        data["death_rate"] = round((data["death_count"] / data["total_count"]) * 100)
         data["cure_rate"] = round((data["cure_count"] / data["total_count"]) * 100)
         serializer = ReportSerializer(data=data)
         if serializer.is_valid():
