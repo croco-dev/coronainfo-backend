@@ -8,7 +8,7 @@ import datetime
 from .serializers import ReportSerializer
 
 
-class ReportViewSet(viewsets.ReadOnlyModelViewSet):
+class ReportViewSet(viewsets.ViewSet):
     serializer_class = ReportSerializer
 
     def list(self, request):
