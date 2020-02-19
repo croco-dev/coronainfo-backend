@@ -18,7 +18,7 @@ class MovementViewSet(viewsets.ModelViewSet):
         feedsSerializer = FeedsSerializer(data=data)
         if feedsSerializer.is_valid():
             feedsSerializer.save()
-        return super().perform_create(serializer)
+        return Response()
 
     def perform_update(self, serializer):
         data = self.request.data
@@ -27,4 +27,4 @@ class MovementViewSet(viewsets.ModelViewSet):
         feedsSerializer = FeedsSerializer(data=data)
         if feedsSerializer.is_valid():
             feedsSerializer.save()
-        return super().perform_update(serializer)
+        return super().perform_update(feedsSerializer)
