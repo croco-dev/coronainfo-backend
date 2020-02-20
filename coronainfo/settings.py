@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "qr$q_#3&_d3s%xqu#2%n0qlmx(cji$zn7$w15^4i%hkgo!#y3^"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG_MODE")
 
 ALLOWED_HOSTS = ["coronas.info", "127.0.0.1", "api.coronas.info"]
 

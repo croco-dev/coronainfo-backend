@@ -57,8 +57,8 @@ class Crawler:
             patient_row, created = Patient.objects.update_or_create(
                 index=patient["index"], defaults=patient
             )
-        today = date.fromisoformat(date.today())
-        version = Version(date=today)
-        return True
+        version = Version(date=date.today())
+        version.save()
+        return version
         pass
 
