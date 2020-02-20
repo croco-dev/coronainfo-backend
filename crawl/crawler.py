@@ -45,12 +45,16 @@ class Crawler:
             ).split("(")[0]
             if contact != "확인중":
                 patient["contact_count"] = contact
+            else:
+                patient["contact_count"] = 0
             if self.RepresentsInt(patient["infected_route"].split("번째환자")[0]):
                 patient["second_infection"] = patient["infected_route"].split("번째환자")[0]
             elif self.RepresentsInt(patient["infected_route"].split("번째확진자")[0]):
                 patient["second_infection"] = patient["infected_route"].split("번째확진자")[
                     0
                 ]
+            else:
+                patient["second_infection"] = None
             if patient["hospital"] == "격리해제":
                 patient["status"] = "완치"
             else:
