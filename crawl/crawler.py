@@ -14,7 +14,7 @@ class Crawler:
         except ValueError:
             return False
 
-    def get(self, run_date):
+    def get(self):
         req = requests.get("http://ncov.mohw.go.kr/bdBoardList.do?brdId=1&brdGubun=12")
         html = req.text
         bsObject = BeautifulSoup(html, "html.parser")
