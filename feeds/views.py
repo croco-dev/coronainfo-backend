@@ -9,5 +9,5 @@ class FeedViewSet(viewsets.ModelViewSet):
 
     filter_backends = [filters.OrderingFilter]
 
-    ordering = "-date"
+    ordering = ["-date", "-index"]
 
