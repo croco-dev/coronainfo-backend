@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from patients.models import Patient
+from feeds.models import Feed
 from versions.models import Version
 from datetime import date
 
@@ -57,8 +58,34 @@ class Crawler:
             patient_row, created = Patient.objects.update_or_create(
                 index=patient["index"], defaults=patient
             )
+            feed = Feed(
+                index=patient["index"],
+                log_type="patient",
+                date=date.today(),
+                contact_count=patient["contact_count"],
+                second_infection=patient["second_infection"],
+                place=patient["hospital"],
+            )
+
         version = Version(date=date.today())
         version.save()
         return version
-        pass
+
+    def temp(self):
+        req = requests.get("http://ncov.mohw.go.kr/index_main.jsp")
+        html = req.text
+        bsObject = BeautifulSoup(html, "html.parser")
+        db_count = Patient.objects.count()
+        crawl_count = int(
+            bsObject.select("div.co_cur > ul > li")[0].a.text.split(" ")[0]
+        )
+        if db_count < crawl_count:
+            for i in range(db_count + 1, crawl_count + 1):
+                patient = Patient(index=i, status="확진 및 격리", date=date.today())
+                patient.save()
+                feed = Feed(index=i, log_type="patient", date=date.today())
+                feed.save()
+        version = Version(date=date.today())
+        version.save()
+        return Version.objects.first()
 

@@ -16,3 +16,16 @@ class CrawlViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
+
+class TempCrawlViewSet(viewsets.ViewSet):
+    def list(self, request):
+        return Response()
+
+    def create(self, request):
+        update = Crawler().temp()
+        serializer = VersionSerializer(data=update.__dict__)
+        if serializer.is_valid():
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
