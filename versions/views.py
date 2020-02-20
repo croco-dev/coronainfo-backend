@@ -13,7 +13,13 @@ class VersionViewSet(viewsets.ModelViewSet):
     ordering = "-date"
 
     def list(self, request):
-        return Response(Version.objects.order_by("-date").first())
+        versionSerializer = VersionSerializer(
+            data=Version.objects.order_by("-date").first().__dict__
+        )
+        if versionSerializer.is_valid():
+            return Response(versionSerializer.data)
+        else:
+            return Response(versionSerializer.errors)
 
     def perform_create(self, serializer):
         data = self.request.data
