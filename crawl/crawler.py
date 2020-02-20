@@ -64,6 +64,7 @@ class Crawler:
             )
             feed = Feed(
                 index=patient["index"],
+                status=patient["status"],
                 log_type="patient",
                 date=date.today(),
                 contact_count=patient["contact_count"],
@@ -87,7 +88,9 @@ class Crawler:
             for i in range(db_count + 1, crawl_count + 1):
                 patient = Patient(index=i, status="확진 및 격리", date=date.today())
                 patient.save()
-                feed = Feed(index=i, log_type="patient", date=date.today())
+                feed = Feed(
+                    index=i, log_type="patient", date=date.today(), status="확진 및 격리"
+                )
                 feed.save()
         version = Version(date=date.today())
         version.save()
