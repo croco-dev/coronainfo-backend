@@ -1,6 +1,7 @@
 from rest_framework import viewsets, filters
 from feeds.serializers import FeedsSerializer
 from coronainfo.permissions import IsAdminOrReadOnly
+from rest_framework.response import Response
 from .models import Version
 from .serializers import VersionSerializer
 
@@ -10,6 +11,9 @@ class VersionViewSet(viewsets.ModelViewSet):
     serializer_class = VersionSerializer
     filter_backends = [filters.OrderingFilter]
     ordering = "-date"
+
+    def list(self, request):
+        return Response(Version.objects.order_by("-date").first())
 
     def perform_create(self, serializer):
         data = self.request.data
