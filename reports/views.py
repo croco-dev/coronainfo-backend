@@ -13,9 +13,9 @@ class ReportViewSet(viewsets.ViewSet):
     def list(self, request):
         data = {}
         report = Report.objects.order_by("-date").first()
-        data["total_count"] = report["patient_count"]
-        data["death_count"] = report["death_count"]
-        data["cure_count"] = report["cure_count"]
+        data["total_count"] = report.patient_count
+        data["death_count"] = report.death_count
+        data["cure_count"] = report.cure_count
         today = Version.objects.order_by("-date").first().date
         yesterday_count = Patient.objects.filter(
             date=today - datetime.timedelta(days=1)
