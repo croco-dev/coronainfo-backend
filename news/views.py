@@ -13,7 +13,7 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
         data = {"news": []}
         client_id = os.environ.get("NAVER_SEARCH_CLIENT_ID")
         client_secret = os.environ.get("NAVER_SEARCH_CLIENT_SECRET")
-        encText = urllib.parse.quote("코로나19")
+        encText = urllib.parse.quote("코로나19 코로나")
         url = "https://openapi.naver.com/v1/search/news.json?query=" + encText
         request = urllib.request.Request(url)
         request.add_header("X-Naver-Client-Id", client_id)
