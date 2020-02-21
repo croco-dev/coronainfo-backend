@@ -25,7 +25,7 @@ SECRET_KEY = "qr$q_#3&_d3s%xqu#2%n0qlmx(cji$zn7$w15^4i%hkgo!#y3^"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG_MODE") or False
 
-ALLOWED_HOSTS = ["coronas.info", "127.0.0.1", "api.coronas.info"]
+ALLOWED_HOSTS = ["coronas.info", "127.0.0.1", "api.coronas.info", "api-dev.coronas.info"]
 
 
 # Application definition
