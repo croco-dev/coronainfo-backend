@@ -5,8 +5,13 @@ from .models import Patient
 
 
 class PatientSerializer(serializers.ModelSerializer):
-    movements = MovementSerializer(many=True, read_only=True)
+    last_movement = serializers.SerializerMethodField()
 
     class Meta:
         model = Patient
         exclude = []
+    def get_last_movement(self, patient):
+        movement = patient.movements.all()
+        if (len(movement) > 0):
+          return MovementSerializer(movement[0], read_only=True).data
+

@@ -55,9 +55,7 @@ pycparser==2.19
 pydocstyle==5.0.2
 pyflakes==2.1.1
 pylama==7.7.1
-pylint==2.4.4
 pylint-celery==0.3
-pylint-django==2.0.12
 pylint-flask==0.6
 pylint-plugin-utils==0.6
 pyparsing==2.4.6

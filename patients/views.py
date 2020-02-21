@@ -1,6 +1,5 @@
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, filters
 from feeds.serializers import FeedsSerializer
-from coronainfo.permissions import IsAdminOrReadOnly
 from .serializers import PatientSerializer
 from .models import Patient
 
@@ -15,16 +14,16 @@ class PatientViewSet(viewsets.ModelViewSet):
         data = self.request.data
         data._mutable = True
         data["log_type"] = "patient"
-        feedsSerializer = FeedsSerializer(data=data)
-        if feedsSerializer.is_valid():
-            feedsSerializer.save()
-        return super().perform_create(feedsSerializer)
+        feeds_serializer = FeedsSerializer(data=data)
+        if feeds_serializer.is_valid():
+            feeds_serializer.save()
+        return super().perform_create(serializer)
 
     def perform_update(self, serializer):
         data = self.request.data
         data._mutable = True
         data["log_type"] = "patient"
-        feedsSerializer = FeedsSerializer(data=data)
-        if feedsSerializer.is_valid():
-            feedsSerializer.save()
-        return super().perform_update(feedsSerializer)
+        feeds_serializer = FeedsSerializer(data=data)
+        if feeds_serializer.is_valid():
+            feeds_serializer.save()
+        return super().perform_update(serializer)
