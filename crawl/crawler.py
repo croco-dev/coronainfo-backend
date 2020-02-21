@@ -4,6 +4,7 @@ import re
 from patients.models import Patient
 from feeds.models import Feed
 from versions.models import Version
+from reports.models import Report
 from datetime import date
 
 
@@ -90,6 +91,12 @@ class Crawler:
         crawl_count = int(
             bsObject.select("div.co_cur > ul > li")[0].a.text.split(" ")[0]
         )
+        cure_count = int(
+            bsObject.select("div.co_cur > ul > li")[1].a.text.split(" ")[0]
+        )
+        death_count = int(
+            bsObject.select("div.co_cur > ul > li")[2].a.text.split(" ")[0]
+        )
         if db_count < crawl_count:
             for i in range(db_count + 1, crawl_count + 1):
                 patient = Patient(index=i, status="확진 및 격리", date=date.today())
@@ -98,6 +105,8 @@ class Crawler:
                     index=i, log_type="patient", date=date.today(), status="확진 및 격리"
                 )
                 feed.save()
+        report = Report(cure_count=cure_count, death_count=death_count, patient_count=crawl_count)
+        report.save()
         version = Version(date=date.today())
         version.save()
         return Version.objects.first()

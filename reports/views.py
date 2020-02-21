@@ -6,16 +6,16 @@ from patients.models import Patient
 from versions.models import Version
 import datetime
 from .serializers import ReportSerializer
-
-
+from .models import Report
 class ReportViewSet(viewsets.ViewSet):
     serializer_class = ReportSerializer
 
     def list(self, request):
         data = {}
-        data["total_count"] = Patient.objects.count()
-        data["death_count"] = Patient.objects.filter(status="사망").count()
-        data["cure_count"] = Patient.objects.filter(status="완치").count()
+        report = Report.objects.order_by("-date").first()
+        data["total_count"] = report["patient_count"]
+        data["death_count"] = report["death_count"]
+        data["cure_count"] = report["cure_count"]
         today = Version.objects.order_by("-date").first().date
         yesterday_count = Patient.objects.filter(
             date=today - datetime.timedelta(days=1)
