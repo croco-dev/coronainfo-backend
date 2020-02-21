@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "reports.apps.ReportsConfig",
     "movements.apps.MovementsConfig",
     "news.apps.NewsConfig",
+    "notice.apps.NoticeConfig",
     "feeds.apps.FeedsConfig",
     "crawl.apps.CrawlConfig",
     "drf_yasg",

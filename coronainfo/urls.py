@@ -9,10 +9,12 @@ from feeds.views import FeedViewSet
 from versions.views import VersionViewSet
 from reports.views import ReportViewSet
 from news.views import NewsViewSet
+from notice.views import NoticeViewSet
 from crawl.views import CrawlViewSet, TempCrawlViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
+ROUTER.register("notice", NoticeViewSet)
 ROUTER.register("reports", ReportViewSet, basename={"reports"})
 ROUTER.register("news", NewsViewSet, basename={"news"})
 ROUTER.register("crawl", CrawlViewSet, basename={"crawl"})
