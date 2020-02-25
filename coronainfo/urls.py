@@ -16,12 +16,12 @@ from .permissions import IsAdminOrReadOnly
 ROUTER = routers.DefaultRouter()
 ROUTER.register("notice", NoticeViewSet)
 ROUTER.register("reports", ReportViewSet, basename={"reports"})
+ROUTER.register("report/patients", PatientReportViewSet, basename={"patient report"})
 ROUTER.register("news", NewsViewSet, basename={"news"})
 ROUTER.register("crawl", CrawlViewSet, basename={"crawl"})
 ROUTER.register("crawl/temp", TempCrawlViewSet, basename={"temp"})
 ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
-ROUTER.register("patients/report", PatientReportViewSet, basename={"patient report"})
 ROUTER.register("patients", PatientViewSet)
 ROUTER.register("movements", MovementViewSet)
 
