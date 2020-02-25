@@ -5,6 +5,7 @@ from .models import Patient
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
+from feeds.models import Feed
 
 
 class PatientViewSet(viewsets.ModelViewSet):
@@ -13,8 +14,9 @@ class PatientViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering = "-index"
     def retrieve(self, request, pk=None):
-        queryset = Patient.objects.all()
-        patient = get_object_or_404(queryset, index=pk)
+        patient = Patient.objects.filter(index=pk).first()
+        if patient is None:
+          return Response('Data null', status=404)
         serializer = PatientSerializer(patient)
         return Response(serializer.data)
 
@@ -22,6 +24,7 @@ class PatientViewSet(viewsets.ModelViewSet):
         data = self.request.data
         data._mutable = True
         data["log_type"] = "patient"
+        data["date"] = data["last_update"]
         feeds_serializer = FeedsSerializer(data=data)
         if feeds_serializer.is_valid():
             feeds_serializer.save()
@@ -31,6 +34,7 @@ class PatientViewSet(viewsets.ModelViewSet):
         data = self.request.data
         data._mutable = True
         data["log_type"] = "patient"
+        data["date"] = data["last_update"]
         feeds_serializer = FeedsSerializer(data=data)
         if feeds_serializer.is_valid():
             feeds_serializer.save()
@@ -40,9 +44,9 @@ class PatientReportViewSet(viewsets.ModelViewSet):
         serializer_class = PatientReportSerializer
         def list(self, request):
             data = {}
-            data["total_report"] = Patient.objects.all().values('date').annotate(total=Count('date')).order_by('date')
-            data["cure_report"] = Patient.objects.filter(status='완치').values('date').annotate(total=Count('date')).order_by('date')
-            data["death_report"] = Patient.objects.filter(status='사망').values('date').annotate(total=Count('date')).order_by('date')
+            data["total_report"] = Feed.objects.all().values('date').annotate(total=Count('date')).order_by('date')
+            data["cure_report"] = Feed.objects.filter(status='완치').values('date').annotate(total=Count('date')).order_by('date')
+            data["death_report"] = Feed.objects.filter(status='사망').values('date').annotate(total=Count('date')).order_by('date')
             serializer = PatientReportSerializer(data=data)
             if serializer.is_valid():
               return Response(serializer.data)
