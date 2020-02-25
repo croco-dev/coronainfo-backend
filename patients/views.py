@@ -44,7 +44,7 @@ class PatientReportViewSet(viewsets.ModelViewSet):
         serializer_class = PatientReportSerializer
         def list(self, request):
             data = {}
-            data["total_report"] = Feed.objects.all().values('date').annotate(total=Count('date')).order_by('date')
+            data["total_report"] = Patient.objects.all().values('date').annotate(total=Count('date')).order_by('date')
             data["cure_report"] = Feed.objects.filter(status='완치').values('date').annotate(total=Count('date')).order_by('date')
             data["death_report"] = Feed.objects.filter(status='사망').values('date').annotate(total=Count('date')).order_by('date')
             serializer = PatientReportSerializer(data=data)
