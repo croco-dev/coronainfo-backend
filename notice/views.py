@@ -12,6 +12,8 @@ class NoticeViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         notice = Notice.objects.first()
+        if notice is None:
+          return Response('공지사항이 없습니다.',status=404)
         serializer = NoticeSerializer(data=notice.__dict__)
         if serializer.is_valid():
             return Response(serializer.data)
