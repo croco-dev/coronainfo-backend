@@ -14,7 +14,7 @@ class VersionViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         versionSerializer = VersionSerializer(
-            data=Version.objects.order_by("-date").first().__dict__
+            Version.objects.order_by("-date").first()
         )
         if versionSerializer.is_valid():
             return Response(versionSerializer.data)

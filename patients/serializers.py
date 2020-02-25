@@ -15,3 +15,7 @@ class PatientSerializer(serializers.ModelSerializer):
         if (len(movement) > 0):
           return MovementSerializer(movement[0], read_only=True).data
 
+class PatientReportSerializer(serializers.Serializer):
+    total_report = serializers.ListField()
+    cure_report = serializers.ListField()
+    death_report = serializers.ListField()

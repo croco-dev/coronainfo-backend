@@ -3,7 +3,7 @@ from django.contrib import admin
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers
-from patients.views import PatientViewSet
+from patients.views import PatientViewSet, PatientReportViewSet
 from movements.views import MovementViewSet
 from feeds.views import FeedViewSet
 from versions.views import VersionViewSet
@@ -21,8 +21,10 @@ ROUTER.register("crawl", CrawlViewSet, basename={"crawl"})
 ROUTER.register("crawl/temp", TempCrawlViewSet, basename={"temp"})
 ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
+ROUTER.register("patients/report", PatientReportViewSet, basename={"patient report"})
 ROUTER.register("patients", PatientViewSet)
 ROUTER.register("movements", MovementViewSet)
+
 
 
 urlpatterns = [
