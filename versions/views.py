@@ -16,10 +16,7 @@ class VersionViewSet(viewsets.ModelViewSet):
         versionSerializer = VersionSerializer(
             Version.objects.order_by("-date").first()
         )
-        if versionSerializer.is_valid():
-            return Response(versionSerializer.data)
-        else:
-            return Response(versionSerializer.errors)
+        return Response(versionSerializer.data)
 
     def perform_create(self, serializer):
         data = self.request.data
