@@ -39,7 +39,10 @@ class Crawler:
                 birth = int(
                     patient_info[1].split(",")[1].replace("'", "").replace(")", "")
                 )
-                patient["age"] = 120 - birth
+                if birth >= 20:
+                  patient["age"] = 121 - birth
+                else:
+                  patient["age"] = 21 - birth
                 patient["date"] = "2020-" + re.sub(
                     "\s+", "", div.select("a > ul > li:nth-child(4) > span")[1].text
                 ).replace(".", "-")
