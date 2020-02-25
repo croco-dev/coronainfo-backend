@@ -85,7 +85,81 @@ class Crawler:
         version = Version(date=date.today())
         version.save()
         return version
-
+    def seoul(self):
+        req = requests.get("http://www.seoul.go.kr/coronaV/coronaStatus.do")
+        html = req.text
+        bsObject = BeautifulSoup(html, "html.parser")
+        for tr in bsObject.select("tr.patient"):
+            patient = {}
+            patient["index"] = re.sub(
+                "\s+", "", tr.select("td")[0].text
+            )
+            patient["infected_route"] = re.sub(
+                "\s+", "", tr.select("td")[2].text
+            )
+            patient_info = re.sub(
+                "\s+", "", tr.select("td")[1].text
+            ).split("(")
+            patient["sex"] = patient_info[1].split(",")[0]
+            patient["country"] = patient_info[0]
+            birth = int(
+                patient_info[1].split(",")[1].replace("‵", "").replace(")", "")
+            )
+            if birth >= 20:
+              patient["age"] = 121 - birth
+            else:
+              patient["age"] = 21 - birth
+            patient["date"] = "2020-" + re.sub(
+                "\s+", "", tr.select("td")[3].text
+            ).replace("/", "-")
+            patient["hospital"] = re.sub(
+                "\s+", "", tr.select("td")[5].text
+            )
+            contact = re.sub(
+                "\s+", "", tr.select("td")[4].text
+            )
+            if contact != "확인중":
+                contact = contact.replace("명", "")
+                patient["contact_count"] = contact
+            else:
+                patient["contact_count"] = 0
+            if self.RepresentsInt(patient["infected_route"].split("와 직장동료")[0].replace("#", "")):
+                patient["second_infection"] = patient["infected_route"].split(
+                    "와 직장동료"
+                )[0].replace("#", "")
+            elif self.RepresentsInt(patient["infected_route"].split("와 접촉")[0].replace("#", "")):
+                patient["second_infection"] = patient["infected_route"].split(
+                    "와 접촉"
+                )[0].replace("#", "")
+            elif self.RepresentsInt(patient["infected_route"].split("와 가족")[0].replace("#", "")):
+                patient["second_infection"] = patient["infected_route"].split(
+                    "와 가족"
+                )[0].replace("#", "")
+            elif self.RepresentsInt(patient["infected_route"].split("의 가족")[0].replace("#", "")):
+                patient["second_infection"] = patient["infected_route"].split(
+                    "의 가족"
+                )[0].replace("#", "")
+            else:
+                patient["second_infection"] = None
+            if patient["hospital"] == "격리해제":
+                patient["status"] = "완치"
+            else:
+                patient["status"] = "확진 및 격리"
+            patient_row, created = Patient.objects.update_or_create(
+                index=patient["index"], defaults=patient
+            )
+            feed = Feed(
+                index=patient["index"],
+                status=patient["status"],
+                log_type="patient",
+                date=date.today(),
+                contact_count=patient["contact_count"],
+                second_infection=patient["second_infection"],
+                place=patient["hospital"],
+            )
+        version = Version(date=date.today())
+        version.save()
+        return version
     def temp(self):
         req = requests.get("http://ncov.mohw.go.kr/index_main.jsp")
         html = req.text

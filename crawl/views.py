@@ -10,6 +10,7 @@ class CrawlViewSet(viewsets.ViewSet):
 
     def create(self, request):
         update = Crawler().get()
+        update = Crawler().seoul()
         serializer = VersionSerializer(data=update.__dict__)
         if serializer.is_valid():
             return Response(serializer.data)
