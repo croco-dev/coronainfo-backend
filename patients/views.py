@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
 from feeds.models import Feed
+from django.core.cache import cache
 
 
 class PatientViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,14 @@ class PatientViewSet(viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     filter_backends = [filters.OrderingFilter]
     ordering = "-index"
+    def list(self, request):
+        cached_patients = cache.get('patients', None)
+        if not cached_patients:
+            patients = Patient.objects.all()
+            serializer = PatientSerializer(patients, many=True)
+            cache.set('patients', serializer.data, 60 * 60)
+            cached_patients = serializer.data
+        return Response(cached_patients)
     def retrieve(self, request, pk=None):
         patient = Patient.objects.filter(index=pk).first()
         if patient is None:
