@@ -17,7 +17,7 @@ class PatientViewSet(viewsets.ModelViewSet):
     def list(self, request):
         cached_patients = cache.get('patients', None)
         if not cached_patients:
-            patients = Patient.objects.all()
+            patients = Patient.objects.all().order_by('-index')
             serializer = PatientSerializer(patients, many=True)
             cache.set('patients', serializer.data, 60 * 20)
             cached_patients = serializer.data
