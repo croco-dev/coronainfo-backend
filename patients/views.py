@@ -19,7 +19,7 @@ class PatientViewSet(viewsets.ModelViewSet):
         if not cached_patients:
             patients = Patient.objects.all()
             serializer = PatientSerializer(patients, many=True)
-            cache.set('patients', serializer.data, 60 * 60)
+            cache.set('patients', serializer.data, 60 * 20)
             cached_patients = serializer.data
         return Response(cached_patients)
     def retrieve(self, request, pk=None):
