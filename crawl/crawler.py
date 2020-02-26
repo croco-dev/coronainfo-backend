@@ -166,7 +166,7 @@ class Crawler:
         bsObject = BeautifulSoup(html, "html.parser")
         db_count = Patient.objects.count()
         crawl_count = int(
-            bsObject.select("div.co_cur > ul > li")[0].a.text.split(" ")[0]
+            bsObject.select("div.co_cur > ul > li")[0].a.text.split(" ")[0].replace(",","")
         )
         cure_count = int(
             bsObject.select("div.co_cur > ul > li")[1].a.text.split(" ")[0]
