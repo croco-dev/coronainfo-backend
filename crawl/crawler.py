@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-from patients.models import Patient
+from patients.models import Patient, PatientLocation
 from feeds.models import Feed
 from versions.models import Version
 from reports.models import Report
@@ -186,5 +186,19 @@ class Crawler:
         report.save()
         version = Version(date=date.today())
         version.save()
-        return Version.objects.first()
-
+        return version
+    def location(self):
+        req = requests.get("http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=13")
+        html = req.text
+        bsObject = BeautifulSoup(html, "html.parser")
+        for tr in bsObject.select("tbody > tr"):
+          location = {}
+          location["name"] = tr.find("th").text
+          if location["name"] == '합계' or location["name"] == '검역':
+            continue
+          location["increase"] = int(tr.select("td")[0].text.replace(",", ""))
+          location["total"] = int(tr.select("td")[1].text.replace(",", ""))
+          patient_location, created = PatientLocation.objects.update_or_create(
+                    name=location["name"], defaults=location
+                )
+        return True

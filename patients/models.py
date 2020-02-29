@@ -16,3 +16,8 @@ class Patient(models.Model):
 
     def __str__(self):
         return "%s %s %s %s" % (self.index, self.date, self.status, self.contact_count)
+
+class PatientLocation(models.Model):
+      name = models.CharField(max_length=10)
+      total = models.IntegerField()
+      increase = models.IntegerField()

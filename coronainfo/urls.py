@@ -3,7 +3,7 @@ from django.contrib import admin
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers
-from patients.views import PatientViewSet, PatientReportViewSet
+from patients.views import PatientLocationViewSet, PatientReportViewSet, PatientViewSet
 from movements.views import MovementViewSet
 from feeds.views import FeedViewSet
 from versions.views import VersionViewSet
@@ -16,7 +16,8 @@ from .permissions import IsAdminOrReadOnly
 ROUTER = routers.DefaultRouter()
 ROUTER.register("notice", NoticeViewSet)
 ROUTER.register("reports", ReportViewSet, basename={"reports"})
-ROUTER.register("report/patients", PatientReportViewSet, basename={"patient report"})
+ROUTER.register("reports/patients", PatientReportViewSet, basename={"patient report"})
+ROUTER.register("reports/location", PatientLocationViewSet, basename={"location report"})
 ROUTER.register("news", NewsViewSet, basename={"news"})
 ROUTER.register("crawl", CrawlViewSet, basename={"crawl"})
 ROUTER.register("crawl/temp", TempCrawlViewSet, basename={"temp"})

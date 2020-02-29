@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Count
 from feeds.models import Feed
 from django.core.cache import cache
+from patients.serializers import PatientLocationSerializer
+from crawl.crawler import Crawler
+from patients.models import PatientLocation
 
 
 class PatientViewSet(viewsets.ModelViewSet):
@@ -61,3 +64,9 @@ class PatientReportViewSet(viewsets.ModelViewSet):
               return Response(serializer.data)
             else:
               return Response(serializer.errors)
+
+class PatientLocationViewSet(viewsets.ModelViewSet):
+    serializer_class = PatientLocationSerializer
+    queryset = PatientLocation.objects.all()
+    def create(self, request, *args, **kwargs):
+        return Response(Crawler().location())
