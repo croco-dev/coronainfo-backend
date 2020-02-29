@@ -2,11 +2,12 @@ from django.db.models import Sum
 from rest_framework import viewsets, permissions, filters
 from feeds.serializers import FeedsSerializer
 from rest_framework.response import Response
-from patients.models import Patient
+from patients.models import Patient, PatientLocation
 from versions.models import Version
 import datetime
 from .serializers import ReportSerializer
 from .models import Report
+from patients.serializers import PatientLocationSerializer
 class ReportViewSet(viewsets.ViewSet):
     serializer_class = ReportSerializer
 
@@ -28,6 +29,10 @@ class ReportViewSet(viewsets.ViewSet):
         second_count = Patient.objects.filter(second_infection__isnull=False).count()
         data["second_rate"] = round((second_count / data["total_count"]) * 100)
         data["cure_rate"] = round((data["cure_count"] / data["total_count"]) * 100)
+        total_location = PatientLocationSerializer(PatientLocation.objects.order_by('-total').first())
+        increase_location = PatientLocationSerializer(PatientLocation.objects.order_by('-increase').first())
+        data["top_rate_increase_location"] = increase_location.data
+        data["top_rate_total_location"] = total_location.data
         serializer = ReportSerializer(data=data)
         if serializer.is_valid():
             return Response(serializer.data)

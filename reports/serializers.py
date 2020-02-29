@@ -10,4 +10,5 @@ class ReportSerializer(serializers.Serializer):
     contact_count = serializers.IntegerField()
     second_rate = serializers.IntegerField()
     cure_rate = serializers.IntegerField()
-
+    top_rate_increase_location = serializers.DictField()
+    top_rate_total_location = serializers.DictField()
