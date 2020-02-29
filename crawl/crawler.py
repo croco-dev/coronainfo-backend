@@ -19,7 +19,7 @@ class Crawler:
     def get(self):
         for i in range(1, 15):
             req = requests.get(
-                f"http://ncov.mohw.go.kr/bdBoardList.do?brdId=1&brdGubun=12&dataGubun=&ncvContSeq=&contSeq=&board_id=&gubun=&pageIndex={i}"
+                f"http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=12&pageIndex={i}"
             )
             html = req.text
             bsObject = BeautifulSoup(html, "html.parser")
