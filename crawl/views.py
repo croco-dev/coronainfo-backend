@@ -30,3 +30,11 @@ class TempCrawlViewSet(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
+class LocationCrawlViewSet(viewsets.ViewSet):
+    def list(self, request):
+        return Response()
+
+    def create(self, request):
+        location = Crawler().location()
+        return Response(location)
+

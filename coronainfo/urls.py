@@ -10,7 +10,7 @@ from versions.views import VersionViewSet
 from reports.views import ReportViewSet
 from news.views import NewsViewSet
 from notice.views import NoticeViewSet
-from crawl.views import CrawlViewSet, TempCrawlViewSet
+from crawl.views import CrawlViewSet, LocationCrawlViewSet, TempCrawlViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
@@ -20,7 +20,8 @@ ROUTER.register("reports/patients", PatientReportViewSet, basename={"patient rep
 ROUTER.register("reports/location", PatientLocationViewSet, basename={"location report"})
 ROUTER.register("news", NewsViewSet, basename={"news"})
 ROUTER.register("crawl", CrawlViewSet, basename={"crawl"})
-ROUTER.register("crawl/temp", TempCrawlViewSet, basename={"temp"})
+ROUTER.register("crawl/temp", TempCrawlViewSet, basename={"location"})
+ROUTER.register("crawl/location", LocationCrawlViewSet, basename={"temp"})
 ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
 ROUTER.register("patients", PatientViewSet)

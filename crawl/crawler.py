@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-from patients.models import Patient, PatientLocation
+from patients.models import Patient, PatientLocation, PatientLocationFeed
 from feeds.models import Feed
 from versions.models import Version
 from reports.models import Report
@@ -202,4 +202,5 @@ class Crawler:
           patient_location, created = PatientLocation.objects.update_or_create(
                     name=location["name"], defaults=location
                 )
+          feed, created = PatientLocationFeed.objects.update_or_create(name=location["name"], date=date.today(), defaults=location)
         return True

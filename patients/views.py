@@ -63,5 +63,3 @@ class PatientReportViewSet(viewsets.ModelViewSet):
 class PatientLocationViewSet(viewsets.ModelViewSet):
     serializer_class = PatientLocationSerializer
     queryset = PatientLocation.objects.all()
-    def create(self, request, *args, **kwargs):
-        return Response(Crawler().location())
