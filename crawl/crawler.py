@@ -82,6 +82,7 @@ class Crawler:
                     second_infection=patient["second_infection"],
                     place=patient["hospital"],
                 )
+                feed.save()
         version = Version(date=date.today())
         version.save()
         return version

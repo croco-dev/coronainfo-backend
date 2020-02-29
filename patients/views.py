@@ -17,6 +17,7 @@ class PatientViewSet(viewsets.ModelViewSet):
     serializer_class = PatientSerializer
     filter_backends = [filters.OrderingFilter]
     ordering = "-index"
+    lookup_field = 'index'
     def list(self, request):
         cached_patients = cache.get('patients', None)
         if not cached_patients:
@@ -25,12 +26,6 @@ class PatientViewSet(viewsets.ModelViewSet):
             cache.set('patients', serializer.data, 60 * 20)
             cached_patients = serializer.data
         return Response(cached_patients)
-    def retrieve(self, request, pk=None):
-        patient = Patient.objects.filter(index=pk).first()
-        if patient is None:
-          return Response('Data null', status=404)
-        serializer = PatientSerializer(patient)
-        return Response(serializer.data)
 
     def perform_create(self, serializer):
         data = self.request.data
