@@ -11,6 +11,7 @@ from reports.views import ReportViewSet
 from news.views import NewsViewSet
 from notice.views import NoticeViewSet
 from crawl.views import CrawlViewSet, LocationCrawlViewSet, TempCrawlViewSet
+from cheer.views import CheerViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
@@ -26,6 +27,7 @@ ROUTER.register("feeds", FeedViewSet)
 ROUTER.register("versions", VersionViewSet)
 ROUTER.register("patients", PatientViewSet)
 ROUTER.register("movements", MovementViewSet)
+ROUTER.register("cheer", CheerViewSet)
 
 
 
