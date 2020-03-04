@@ -11,7 +11,8 @@ class CheerViewSet(viewsets.ModelViewSet):
     serializer_class = CheerSerializer
     permission_classes = [AllowAny,]
     def create(self, request):
-        count =  Cheer.objects.filter(ip=request.data["ip"]).count()
+        request.data["ip"] = request.META.get('REMOTE_ADDR')
+        count = Cheer.objects.filter(ip=request.META.get('REMOTE_ADDR')).count()
         if count > 0:
           return Response('only one cheer', status=400)
         return super().create(request)
