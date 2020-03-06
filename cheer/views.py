@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from django.shortcuts import get_object_or_404, render
 from .serializers import CheerSerializer
 from .models import Cheer
 from rest_framework.response import Response
