@@ -12,6 +12,7 @@ from news.views import NewsViewSet
 from notice.views import NoticeViewSet
 from crawl.views import CrawlViewSet, LocationCrawlViewSet, TempCrawlViewSet
 from cheer.views import CheerViewSet
+from mask.views import MaskViewSet
 from .permissions import IsAdminOrReadOnly
 
 ROUTER = routers.DefaultRouter()
@@ -28,6 +29,7 @@ ROUTER.register("versions", VersionViewSet)
 ROUTER.register("patients", PatientViewSet)
 ROUTER.register("movements", MovementViewSet)
 ROUTER.register("cheer", CheerViewSet)
+ROUTER.register("mask", MaskViewSet, basename={"mask"})
 
 
 
