@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     "feeds.apps.FeedsConfig",
     "crawl.apps.CrawlConfig",
     "cheer.apps.CheerConfig",
-    "mask.apps.MaskConfig",
     "drf_yasg",
     "corsheaders",
 ]
