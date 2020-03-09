@@ -166,15 +166,11 @@ class Crawler:
         html = req.text
         bsObject = BeautifulSoup(html, "html.parser")
         db_count = Patient.objects.count()
-        crawl_count = int(
-            bsObject.select("div.co_cur > ul > li")[0].a.text.split(" ")[0].replace(",","")
-        )
+        crawl_count =int( bsObject.select("body > div > div.mainlive_container > div > div > div > div.live_left > div.liveNum > ul > li")[0].span.text.split(")")[1].replace(",",""))
         cure_count = int(
-            bsObject.select("div.co_cur > ul > li")[1].a.text.split(" ")[0]
-        )
+            bsObject.select("body > div > div.mainlive_container > div > div > div > div.live_left > div.liveNum > ul > li")[1].select("span")[1].text)
         death_count = int(
-            bsObject.select("div.co_cur > ul > li")[2].a.text.split(" ")[0]
-        )
+            bsObject.select("body > div > div.mainlive_container > div > div > div > div.live_left > div.liveNum > ul > li")[3].select("span")[0].text)
         if db_count < crawl_count:
             for i in range(db_count + 1, crawl_count + 1):
                 patient = Patient(index=i, status="확진 및 격리", date=date.today())
